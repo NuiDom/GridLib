@@ -7,12 +7,12 @@ gridItem::gridItem(QGraphicsItem *parent)
 
 QRectF gridItem::boundingRect() const
 {
-    return QRectF(-100,0,100,100);
+    return QRectF(1280,720,10,10);
 }
 
 void gridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-
+//    setGrid(scene, 1280, 720, 2, 2);
 }
 
 void gridItem::setGrid(QGraphicsScene *scene, int sceneWidth, int sceneHeight, int rows, int columns)
@@ -35,9 +35,10 @@ void gridItem::setGrid(QGraphicsScene *scene, int sceneWidth, int sceneHeight, i
     {
         for(int gridsCols=0; gridsCols<sceneWidth; gridsCols+=rectWidth)
         {
-            rectangleItem rectRoi;
-            rectRoi.P1 = QPointF(gridsCols, gridRows);
-            rectRoi.P2 = QPointF(gridsCols+rectWidth, gridRows+rectHeight);
+            rectangleItem *rectRoi;
+            rectRoi = new rectangleItem();
+            rectRoi->P1 = QPointF(gridsCols, gridRows);
+            rectRoi->P2 = QPointF(gridsCols+rectWidth, gridRows+rectHeight);
             scene->addItem(rectRoi);
         }
     }

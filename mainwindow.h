@@ -5,7 +5,8 @@
 #include <QtCore>
 #include <QtGui>
 #include <QGraphicsScene>
-#include "rectangleitem.h"
+//#include "rectangleitem.h"
+#include "griditem.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,6 +24,7 @@ private:
     Ui::MainWindow *ui;
 
     QGraphicsScene *scene;
-    rectangleItem *rect;
+//    rectangleItem *rect;
+    gridItem *grid;
 };
 #endif // MAINWINDOW_H

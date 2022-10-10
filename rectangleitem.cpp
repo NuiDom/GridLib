@@ -8,7 +8,7 @@ rectangleItem::rectangleItem(QGraphicsItem *parent)
 
 QRectF rectangleItem::boundingRect() const
 {
-    return QRectF(-100,0,100,100);
+    return QRectF(QPointF(P1.x()-10,P1.y()-10),QPointF(P2.x()+10,P2.y()+10));
 }
 
 void rectangleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
