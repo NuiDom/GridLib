@@ -15,58 +15,69 @@ void gridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
 }
 
-void gridItem::setGrid(QGraphicsScene *scene, int sceneWidth, int sceneHeight, int gridsX, int gridsY)
+void gridItem::setGrid(QGraphicsScene *scene, int sceneWidth, int sceneHeight, int rows, int columns)
 {
-    // Clear the Scene
-    QList<QGraphicsItem *>  graphicItems = scene->items();
-    foreach(QGraphicsItem *graphicItem,graphicItems){
-        if(graphicItem->type()== RectangleFeatureItemType)
-            {
-            graphicItem->hide();
-                scene->removeItem(graphicItem);
-            }
-    }
+//    // Clear the Scene
+//    QList<QGraphicsItem *>  graphicItems = scene->items();
+//    foreach(QGraphicsItem *graphicItem,graphicItems){
+//        if(graphicItem->type()== RectangleFeatureItemType)
+//            {
+//            graphicItem->hide();
+//                scene->removeItem(graphicItem);
+//            }
+//    }
 
     // Create Grid
-    float gridWidth = sceneWidth/gridsX;
-    float gridHeight = sceneHeight/gridsY;
-}
+    float rectWidth = sceneWidth/columns;
+    float rectHeight = sceneHeight/rows;
 
-void AnomalyDetect::setupGridROIs(QGraphicsScene *scene)
-{
-//    int gridsX = 16;
-//    int gridsY = 16;
-    PatchROIs.clear();
-    QList<QGraphicsItem *>  graphicItems = scene->items();
-    foreach(QGraphicsItem *graphicItem,graphicItems){
-        if(graphicItem->type()== RectangleFeatureItemType)
-            {
-            graphicItem->hide();
-                scene->removeItem(graphicItem);
-            }
-    }
-
-    float width = 1280 / gridsX;
-    float height = 720 / gridsY;
-
-    for(int gridY = 0; gridY < 720; gridY+=height)
+    for(int gridRows=0; gridRows<sceneHeight; gridRows+=rectHeight)
     {
-        for(int gridX = 0; gridX < 1280; gridX+=width)
+        for(int gridsCols=0; gridsCols<sceneWidth; gridsCols+=rectWidth)
         {
-            RoiRectangle roiRect;
-            roiRect.P1 = QPointF(gridX,gridY);
-            roiRect.P2 = QPointF(gridX+width,gridY+height);
-            PatchROIs.append(roiRect);
-
-//            rectangleItem *rectRoi = new rectangleItem();
-//            rectRoi->P1 = QPointF(gridX,gridY);
-//            rectRoi->P2 = QPointF(gridX+width,gridY+height);
-
-//            rectRoi->show();
-//            rectRoi->setVisible(true);
-//            scene->addItem(rectRoi);
+            rectangleItem rectRoi;
+            rectRoi.P1 = QPointF(gridsCols, gridRows);
+            rectRoi.P2 = QPointF(gridsCols+rectWidth, gridRows+rectHeight);
+            scene->addItem(rectRoi);
         }
     }
-
-    DrawGrid(scene);
 }
+
+//void AnomalyDetect::setupGridROIs(QGraphicsScene *scene)
+//{
+////    int gridsX = 16;
+////    int gridsY = 16;
+//    PatchROIs.clear();
+//    QList<QGraphicsItem *>  graphicItems = scene->items();
+//    foreach(QGraphicsItem *graphicItem,graphicItems){
+//        if(graphicItem->type()== RectangleFeatureItemType)
+//            {
+//            graphicItem->hide();
+//                scene->removeItem(graphicItem);
+//            }
+//    }
+
+//    float width = 1280 / gridsX;
+//    float height = 720 / gridsY;
+
+//    for(int gridY = 0; gridY < 720; gridY+=height)
+//    {
+//        for(int gridX = 0; gridX < 1280; gridX+=width)
+//        {
+//            RoiRectangle roiRect;
+//            roiRect.P1 = QPointF(gridX,gridY);
+//            roiRect.P2 = QPointF(gridX+width,gridY+height);
+//            PatchROIs.append(roiRect);
+
+////            rectangleItem *rectRoi = new rectangleItem();
+////            rectRoi->P1 = QPointF(gridX,gridY);
+////            rectRoi->P2 = QPointF(gridX+width,gridY+height);
+
+////            rectRoi->show();
+////            rectRoi->setVisible(true);
+////            scene->addItem(rectRoi);
+//        }
+//    }
+
+//    DrawGrid(scene);
+//}
