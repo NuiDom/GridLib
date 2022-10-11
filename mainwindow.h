@@ -20,11 +20,23 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_pushButton_selectGroup_clicked();
+    bool eventFilter(QObject *obj, QEvent *event);
+//    void mousePressEvent(QEvent *event) override;
+
 private:
     Ui::MainWindow *ui;
 
     QGraphicsScene *scene;
-//    rectangleItem *rect;
+    rectangleItem *rect1;
+    rectangleItem *rect2;
     gridItem *grid;
+
+    bool groupSelect = false;
+    bool groupSelected = false;
+
+    QPointF point1 = QPointF(0,0);
+    QPointF point2 = QPointF(0,0);
 };
 #endif // MAINWINDOW_H

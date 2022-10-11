@@ -17,15 +17,15 @@ void gridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
 void gridItem::setGrid(QGraphicsScene *scene, int sceneWidth, int sceneHeight, int rows, int columns)
 {
-//    // Clear the Scene
-//    QList<QGraphicsItem *>  graphicItems = scene->items();
-//    foreach(QGraphicsItem *graphicItem,graphicItems){
-//        if(graphicItem->type()== RectangleFeatureItemType)
-//            {
-//            graphicItem->hide();
-//                scene->removeItem(graphicItem);
-//            }
-//    }
+    // Clear the Scene
+    QList<QGraphicsItem *>  graphicItems = scene->items();
+    foreach(QGraphicsItem *graphicItem,graphicItems){
+        if(graphicItem->type()== RectangleFeatureItemType)
+            {
+            graphicItem->hide();
+                scene->removeItem(graphicItem);
+            }
+    }
 
     // Create Grid
     float rectWidth = sceneWidth/columns;
@@ -35,50 +35,32 @@ void gridItem::setGrid(QGraphicsScene *scene, int sceneWidth, int sceneHeight, i
     {
         for(int gridsCols=0; gridsCols<sceneWidth; gridsCols+=rectWidth)
         {
-            rectangleItem *rectRoi;
-            rectRoi = new rectangleItem();
-            rectRoi->P1 = QPointF(gridsCols, gridRows);
-            rectRoi->P2 = QPointF(gridsCols+rectWidth, gridRows+rectHeight);
-            scene->addItem(rectRoi);
+            RoiRectangle roiRect;
+            roiRect.P1 = QPointF(gridsCols,gridRows);
+            roiRect.P2 = QPointF(gridsCols+rectWidth,gridRows+rectHeight);
+            PatchROIs.append(roiRect);
+
+//            rectangleItem *rectRoi;
+//            rectRoi = new rectangleItem();
+//            rectRoi->P1 = QPointF(gridsCols, gridRows);
+//            rectRoi->P2 = QPointF(gridsCols+rectWidth, gridRows+rectHeight);
+//            scene->addItem(rectRoi);
         }
     }
 }
 
-//void AnomalyDetect::setupGridROIs(QGraphicsScene *scene)
-//{
-////    int gridsX = 16;
-////    int gridsY = 16;
-//    PatchROIs.clear();
-//    QList<QGraphicsItem *>  graphicItems = scene->items();
-//    foreach(QGraphicsItem *graphicItem,graphicItems){
-//        if(graphicItem->type()== RectangleFeatureItemType)
-//            {
-//            graphicItem->hide();
-//                scene->removeItem(graphicItem);
-//            }
-//    }
+void gridItem::DrawGrid(QGraphicsScene *scene)
+{
+    for(const RoiRectangle roiRect: qAsConst(PatchROIs))
+    {
+        rectangleItem *rectRoi = new rectangleItem();
+        rectRoi->P1 = roiRect.P1;
+        rectRoi->P2 = roiRect.P2;
 
-//    float width = 1280 / gridsX;
-//    float height = 720 / gridsY;
+        rectRoi->show();
+        rectRoi->setVisible(true);
+        scene->addItem(rectRoi);
 
-//    for(int gridY = 0; gridY < 720; gridY+=height)
-//    {
-//        for(int gridX = 0; gridX < 1280; gridX+=width)
-//        {
-//            RoiRectangle roiRect;
-//            roiRect.P1 = QPointF(gridX,gridY);
-//            roiRect.P2 = QPointF(gridX+width,gridY+height);
-//            PatchROIs.append(roiRect);
+    }
+}
 
-////            rectangleItem *rectRoi = new rectangleItem();
-////            rectRoi->P1 = QPointF(gridX,gridY);
-////            rectRoi->P2 = QPointF(gridX+width,gridY+height);
-
-////            rectRoi->show();
-////            rectRoi->setVisible(true);
-////            scene->addItem(rectRoi);
-//        }
-//    }
-
-//    DrawGrid(scene);
-//}
