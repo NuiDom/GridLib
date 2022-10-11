@@ -25,6 +25,9 @@ private slots:
     bool eventFilter(QObject *obj, QEvent *event);
 //    void mousePressEvent(QEvent *event) override;
 
+    void on_pushButton_setGroup_clicked();
+    QRect getItemROI();
+
 private:
     Ui::MainWindow *ui;
 
@@ -32,6 +35,7 @@ private:
     rectangleItem *rect1;
     rectangleItem *rect2;
     gridItem *grid;
+    rectangleItem *rect3;
 
     bool groupSelect = false;
     bool groupSelected = false;
