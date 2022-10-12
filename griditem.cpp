@@ -88,7 +88,8 @@ void gridItem::slotPointChanged(QPointF point)
             if(PatchROIs[i].P1 == moveStartP){
                 PatchROIs[i].P1 = point;
             }
-            else if(PatchROIs[i].P2 == moveStartP){
+
+            if(PatchROIs[i].P2 == moveStartP){
                 PatchROIs[i].P2 = point;
             }
         }
