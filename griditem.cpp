@@ -82,20 +82,24 @@ void gridItem::DrawGrid(QGraphicsScene *scene)
 
 void gridItem::slotPointChanged(QPointF point)
 {
+    bool pointChanged = false;
     //update patchroi
 //    if(PatchROIs.contains(moveStartP)){
         for(int i=0; i<PatchROIs.size(); i++){
             if(PatchROIs[i].P1 == moveStartP){
                 PatchROIs[i].P1 = point;
+                pointChanged = true;
             }
 
             if(PatchROIs[i].P2 == moveStartP){
                 PatchROIs[i].P2 = point;
+                pointChanged = true;
             }
         }
 //    }
     //draw grid based off patchroi
-    emit signalChangeGrid();
+    if(pointChanged == true)
+        emit signalChangeGrid();
 }
 
 void gridItem::slotMoveStartPoint(QPointF point)
