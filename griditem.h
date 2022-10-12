@@ -9,8 +9,9 @@ struct RoiRectangle{
     QPointF P2;
 };
 
-class gridItem : public QGraphicsItemGroup
+class gridItem : public QObject, public QGraphicsItem
 {
+    Q_OBJECT
 public:
     gridItem(QGraphicsItem *parent = 0);
     QRectF boundingRect() const;
@@ -20,6 +21,18 @@ public:
     QVector<RoiRectangle> PatchROIs;
 
     void DrawGrid(QGraphicsScene *scene);
+//    void AddGrid();
+
+
+public slots:
+    void slotPointChanged(QPointF);
+    void slotMoveStartPoint(QPointF);
+
+signals:
+    void signalChangeGrid();
+
+protected:
+    QPointF moveStartP;
 };
 
 #endif // GRIDITEM_H

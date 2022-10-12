@@ -85,6 +85,7 @@ void rectangleItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         moveStartPoint = event->pos();
     }
+    emit signalPointToChange(moveStartPoint);
 
     update();
     QGraphicsItem::mousePressEvent(event);
@@ -127,6 +128,7 @@ void rectangleItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         P2 += event->pos() - moveStartPoint;
     }
 
+    emit signalPointChanged(event->pos());
     moveStartPoint = event->pos();
     prepareGeometryChange();
     update();

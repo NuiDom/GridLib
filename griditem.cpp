@@ -1,4 +1,4 @@
-#include "griditem.h"
+﻿#include "griditem.h"
 
 gridItem::gridItem(QGraphicsItem *parent)
 {
@@ -18,16 +18,6 @@ void gridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
 void gridItem::setGrid(QGraphicsScene *scene, int sceneWidth, int sceneHeight, int rows, int columns)
 {
-    // Clear the Scene
-    QList<QGraphicsItem *>  graphicItems = scene->items();
-    foreach(QGraphicsItem *graphicItem,graphicItems){
-        if(graphicItem->type()== RectangleFeatureItemType)
-            {
-            graphicItem->hide();
-                scene->removeItem(graphicItem);
-            }
-    }
-
     // Create Grid
     float rectWidth = sceneWidth/columns;
     float rectHeight = sceneHeight/rows;
@@ -52,17 +42,63 @@ void gridItem::setGrid(QGraphicsScene *scene, int sceneWidth, int sceneHeight, i
 
 void gridItem::DrawGrid(QGraphicsScene *scene)
 {
+    // Clear the Scene
+    QList<QGraphicsItem *>  graphicItems = scene->items();
+    foreach(QGraphicsItem *graphicItem,graphicItems){
+        if(graphicItem->type()== RectangleFeatureItemType)
+            {
+            graphicItem->hide();
+                scene->removeItem(graphicItem);
+            }
+    }
+
     for(const RoiRectangle roiRect: qAsConst(PatchROIs))
     {
         rectangleItem *rectRoi = new rectangleItem();
+        connect(rectRoi, SIGNAL(signalPointChanged(QPointF)), this, SLOT(slotPointChanged(QPointF)));
         rectRoi->P1 = roiRect.P1;
         rectRoi->P2 = roiRect.P2;
 
-        addToGroup(rectRoi);
-//        rectRoi->show();
-//        rectRoi->setVisible(true);
-//        scene->addItem(rectRoi);
+//        addToGroup(rectRoi);
+        rectRoi->show();
+        rectRoi->setVisible(true);
+        scene->addItem(rectRoi);
 
     }
+}
+
+//void gridItem::AddGrid()
+//{
+//    for(const RoiRectangle roiRect: qAsConst(PatchROIs))
+//    {
+//        rectangleItem *rectRoi = new rectangleItem();
+//        rectRoi->P1 = roiRect.P1;
+//        rectRoi->P2 = roiRect.P2;
+
+//        addToGroup(rectRoi);
+
+//    }
+//}
+
+void gridItem::slotPointChanged(QPointF point)
+{
+    //update patchroi
+//    if(PatchROIs.contains(moveStartP)){
+        for(int i=0; i<PatchROIs.size(); i++){
+            if(PatchROIs[i].P1 == moveStartP){
+                PatchROIs[i].P1 = point;
+            }
+            else if(PatchROIs[i].P2 == moveStartP){
+                PatchROIs[i].P2 = point;
+            }
+        }
+//    }
+    //draw grid based off patchroi
+    emit signalChangeGrid();
+}
+
+void gridItem::slotMoveStartPoint(QPointF point)
+{
+    moveStartP = point;
 }
 

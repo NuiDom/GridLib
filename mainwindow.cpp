@@ -24,7 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
     grid = new gridItem();
     grid->setGrid(scene, 1280, 720, 4, 4);
     grid->DrawGrid(scene);
-    scene->addItem(grid);
+    connect(grid, SIGNAL(signalChangeGrid()), this, SLOT(slotChangeGrid()));
+//    scene->addItem(grid);
 
 //    this->installEventFilter(this);
 }
@@ -34,9 +35,25 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::slotChangeGrid()
+{
+    grid->DrawGrid(scene);
+}
+
 void MainWindow::on_pushButton_selectGroup_clicked()
 {
-    groupSelect = true;
+//    groupSelect = true;
+    // Clear the Scene
+    QList<QGraphicsItem *>  graphicItems = scene->items();
+    foreach(QGraphicsItem *graphicItem,graphicItems){
+        if(graphicItem->type()== RectangleFeatureItemType)
+            {
+            graphicItem->hide();
+                scene->removeItem(graphicItem);
+            }
+    }
+//    grid->AddGrid();
+    scene->addItem(grid);
 }
 
 //void MainWindow::mousePressEvent(QEvent *event)
@@ -67,11 +84,11 @@ void MainWindow::on_pushButton_selectGroup_clicked()
 
 void MainWindow::on_pushButton_setGroup_clicked()
 {
-    if(groupSelected == true){
-        rect3->P1 = point1;
-        rect3->P2 = point2;
-        scene->addItem(rect3);
-    }
+//    if(groupSelected == true){
+//        rect3->P1 = point1;
+//        rect3->P2 = point2;
+//        scene->addItem(rect3);
+//    }
 }
 
 //QRect MainWindow::getItemROI()

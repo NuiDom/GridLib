@@ -27,6 +27,7 @@ private slots:
 
     void on_pushButton_setGroup_clicked();
 //    QRect getItemROI();
+    void slotChangeGrid();
 
 private:
     Ui::MainWindow *ui;

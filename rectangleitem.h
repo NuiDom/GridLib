@@ -10,8 +10,9 @@
 #define UserType 65536
 #define RectangleFeatureItemType UserType+5
 
-class rectangleItem : public QGraphicsItem
+class rectangleItem : public QObject, public QGraphicsItem
 {
+    Q_OBJECT
 public:
     rectangleItem(QGraphicsItem *parent = 0);
 
@@ -40,6 +41,10 @@ public:
     bool isTemplate = false;
 
     QPointF moveStartPoint;
+
+signals:
+    void signalPointChanged(QPointF);
+    void signalPointToChange(QPointF);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
