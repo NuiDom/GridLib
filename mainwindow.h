@@ -22,11 +22,11 @@ public:
 
 private slots:
     void on_pushButton_selectGroup_clicked();
-    bool eventFilter(QObject *obj, QEvent *event);
+//    bool eventFilter(QObject *obj, QEvent *event);
 //    void mousePressEvent(QEvent *event) override;
 
     void on_pushButton_setGroup_clicked();
-    QRect getItemROI();
+//    QRect getItemROI();
 
 private:
     Ui::MainWindow *ui;

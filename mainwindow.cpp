@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     grid->DrawGrid(scene);
     scene->addItem(grid);
 
-    this->installEventFilter(this);
+//    this->installEventFilter(this);
 }
 
 MainWindow::~MainWindow()
@@ -44,25 +44,25 @@ void MainWindow::on_pushButton_selectGroup_clicked()
 //    qDebug() << "event";
 //}
 
-bool MainWindow::eventFilter(QObject *obj, QEvent *event)
-{
-    if(event->type() == QEvent::MouseButtonPress){
-          if(groupSelect == true){
-              qDebug() << "group select";
-              if(point1 == QPointF(0,0))
-                  point1 = QPointF(this->pos().x(),this->pos().y());
-              else if((point1 != QPointF(0,0)) && (point2 == QPointF(0,0)))
-                  point2 = QPointF(this->pos().x(),this->pos().y());
-              else if((point1 != QPointF(0,0)) && (point2 != QPointF(0,0)))
-                  groupSelected = true;
-              else
-                  return false;
-          }
-          return true;
-        }
-        else
-            return false;
-}
+//bool MainWindow::eventFilter(QObject *obj, QEvent *event)
+//{
+//    if(event->type() == QEvent::MouseButtonPress){
+//          if(groupSelect == true){
+//              qDebug() << "group select";
+//              if(point1 == QPointF(0,0))
+//                  point1 = QPointF(this->pos().x(),this->pos().y());
+//              else if((point1 != QPointF(0,0)) && (point2 == QPointF(0,0)))
+//                  point2 = QPointF(this->pos().x(),this->pos().y());
+//              else if((point1 != QPointF(0,0)) && (point2 != QPointF(0,0)))
+//                  groupSelected = true;
+//              else
+//                  return false;
+//          }
+//          return true;
+//        }
+//        else
+//            return false;
+//}
 
 
 void MainWindow::on_pushButton_setGroup_clicked()
@@ -74,15 +74,15 @@ void MainWindow::on_pushButton_setGroup_clicked()
     }
 }
 
-QRect MainWindow::getItemROI()
-{
-    QRect rectROI;
+//QRect MainWindow::getItemROI()
+//{
+//    QRect rectROI;
 
-    rectROI.setLeft(this->pos().x()+point1.x());
-    rectROI.setTop(this->pos().y()+point1.y());
-    rectROI.setRight(this->pos().x()+point2.x());
-    rectROI.setBottom(this->pos().y()+point2.y());
+//    rectROI.setLeft(this->pos().x()+point1.x());
+//    rectROI.setTop(this->pos().y()+point1.y());
+//    rectROI.setRight(this->pos().x()+point2.x());
+//    rectROI.setBottom(this->pos().y()+point2.y());
 
-    return rectROI;
-}
+//    return rectROI;
+//}
 

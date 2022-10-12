@@ -2,7 +2,8 @@
 
 gridItem::gridItem(QGraphicsItem *parent)
 {
-
+    setFlags(QGraphicsItem::ItemIsSelectable |
+             QGraphicsItem::ItemSendsGeometryChanges);
 }
 
 QRectF gridItem::boundingRect() const
@@ -57,9 +58,10 @@ void gridItem::DrawGrid(QGraphicsScene *scene)
         rectRoi->P1 = roiRect.P1;
         rectRoi->P2 = roiRect.P2;
 
-        rectRoi->show();
-        rectRoi->setVisible(true);
-        scene->addItem(rectRoi);
+        addToGroup(rectRoi);
+//        rectRoi->show();
+//        rectRoi->setVisible(true);
+//        scene->addItem(rectRoi);
 
     }
 }

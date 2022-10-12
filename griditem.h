@@ -9,7 +9,7 @@ struct RoiRectangle{
     QPointF P2;
 };
 
-class gridItem : public QGraphicsItem
+class gridItem : public QGraphicsItemGroup
 {
 public:
     gridItem(QGraphicsItem *parent = 0);
