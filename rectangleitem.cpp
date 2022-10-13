@@ -85,7 +85,8 @@ void rectangleItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         moveStartPoint = event->pos();
     }
-    emit signalPointToChange(moveStartPoint);
+    if(moveTL || moveBL || moveBR || moveTR)
+        emit signalPointToChange(moveStartPoint);
 
     update();
     QGraphicsItem::mousePressEvent(event);

@@ -56,6 +56,7 @@ void gridItem::DrawGrid(QGraphicsScene *scene)
     {
         rectangleItem *rectRoi = new rectangleItem();
         connect(rectRoi, SIGNAL(signalPointChanged(QPointF)), this, SLOT(slotPointChanged(QPointF)));
+        connect(rectRoi, SIGNAL(signalPointToChange(QPointF)), this, SLOT(slotMoveStartPoint(QPointF)));
         rectRoi->P1 = roiRect.P1;
         rectRoi->P2 = roiRect.P2;
 
@@ -78,7 +79,6 @@ void gridItem::DrawGrid(QGraphicsScene *scene)
 //        addToGroup(rectRoi);
 
 //    }
-//}
 
 void gridItem::slotPointChanged(QPointF point)
 {
@@ -86,16 +86,28 @@ void gridItem::slotPointChanged(QPointF point)
     //update patchroi
 //    if(PatchROIs.contains(moveStartP)){
         for(int i=0; i<PatchROIs.size(); i++){
-            if(PatchROIs[i].P1 == moveStartP){
+            if((moveStartP.x()>(PatchROIs[i].P1.x()-7)) &&
+               (moveStartP.x()<(PatchROIs[i].P1.x()+7)) &&
+               (moveStartP.y()>(PatchROIs[i].P1.y()-7)) &&
+               (moveStartP.y()<(PatchROIs[i].P1.y()+7))     )
+//            if((PatchROIs[i].P1 > (moveStartP-QPointF(7,7))) && (PatchROIs[i].P1 < (moveStartP+QPointF(7,7))))
+            {
                 PatchROIs[i].P1 = point;
                 pointChanged = true;
             }
-
-            if(PatchROIs[i].P2 == moveStartP){
+            if((moveStartP.x()>(PatchROIs[i].P2.x()-7)) &&
+               (moveStartP.x()<(PatchROIs[i].P2.x()+7)) &&
+               (moveStartP.y()>(PatchROIs[i].P2.y()-7)) &&
+               (moveStartP.y()<(PatchROIs[i].P2.y()+7))     )
+//            if((PatchROIs[i].P2 > (moveStartP-QPointF(7,7))) && (PatchROIs[i].P2 < (moveStartP+QPointF(7,7))))
+            {
                 PatchROIs[i].P2 = point;
                 pointChanged = true;
             }
+
         }
+        if(pointChanged)
+            moveStartP = point;
 //    }
     //draw grid based off patchroi
     if(pointChanged == true)
