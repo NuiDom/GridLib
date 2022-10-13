@@ -19,10 +19,10 @@ MainWindow::MainWindow(QWidget *parent)
 //    rect2->P1 = QPointF(-200,-200);
 //    rect2->P2 = QPointF(0,0);
 //    scene->addItem(rect2);
-    rect3 = new rectangleItem();
+//    rect3 = new rectangleItem();
 
     grid = new gridItem();
-    grid->setGrid(scene, 1280, 720, 2, 2);
+//    grid->setGrid(scene, 1280, 720, 2, 2);
     grid->DrawGrid(scene);
     connect(grid, SIGNAL(signalChangeGrid()), this, SLOT(slotChangeGrid()));
 //    scene->addItem(grid);

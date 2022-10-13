@@ -33,10 +33,10 @@ private:
     Ui::MainWindow *ui;
 
     QGraphicsScene *scene;
-    rectangleItem *rect1;
-    rectangleItem *rect2;
+//    rectangleItem *rect1;
+//    rectangleItem *rect2;
     gridItem *grid;
-    rectangleItem *rect3;
+//    rectangleItem *rect3;
 
     bool groupSelect = false;
     bool groupSelected = false;

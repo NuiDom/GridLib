@@ -11,13 +11,11 @@ CONFIG += c++11
 SOURCES += \
     griditem.cpp \
     main.cpp \
-    mainwindow.cpp \
-    rectangleitem.cpp
+    mainwindow.cpp
 
 HEADERS += \
     griditem.h \
-    mainwindow.h \
-    rectangleitem.h
+    mainwindow.h
 
 FORMS += \
     mainwindow.ui
