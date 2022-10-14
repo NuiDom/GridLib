@@ -99,6 +99,7 @@ void gridItem::slotPointChanged(QPointF point)
                 PatchROIs[i].P1 = point;
                 pointChanged = true;
             }
+
             if((moveStartP.x()>(PatchROIs[i].P2.x()-7)) &&
                (moveStartP.x()<(PatchROIs[i].P2.x()+7)) &&
                (moveStartP.y()>(PatchROIs[i].P2.y()-7)) &&
@@ -106,6 +107,24 @@ void gridItem::slotPointChanged(QPointF point)
 //            if((PatchROIs[i].P2 > (moveStartP-QPointF(7,7))) && (PatchROIs[i].P2 < (moveStartP+QPointF(7,7))))
             {
                 PatchROIs[i].P2 = point;
+                pointChanged = true;
+            }
+
+            if((moveStartP.x()>(PatchROIs[i].P3.x()-7)) &&
+               (moveStartP.x()<(PatchROIs[i].P3.x()+7)) &&
+               (moveStartP.y()>(PatchROIs[i].P3.y()-7)) &&
+               (moveStartP.y()<(PatchROIs[i].P3.y()+7))     )
+            {
+                PatchROIs[i].P3 = point;
+                pointChanged = true;
+            }
+
+            if((moveStartP.x()>(PatchROIs[i].P4.x()-7)) &&
+               (moveStartP.x()<(PatchROIs[i].P4.x()+7)) &&
+               (moveStartP.y()>(PatchROIs[i].P4.y()-7)) &&
+               (moveStartP.y()<(PatchROIs[i].P4.y()+7))     )
+            {
+                PatchROIs[i].P4 = point;
                 pointChanged = true;
             }
 

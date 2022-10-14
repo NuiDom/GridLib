@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     rect3 = new rectangleItem();
 
     grid = new gridItem();
-    grid->setGrid(scene, 1280, 720, 2, 2);
+    grid->setGrid(scene, 1280, 720, 4, 4);
     grid->DrawGrid(scene);
     connect(grid, SIGNAL(signalChangeGrid()), this, SLOT(slotChangeGrid()));
 //    scene->addItem(grid);

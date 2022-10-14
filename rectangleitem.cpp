@@ -111,15 +111,25 @@ void rectangleItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << event->pos();
 
-    if(moveTL==true)
+    if(moveTL==true){
         P1 = event->pos();
-    else if (moveBR==true)
+        P3 = QPointF(event->pos().x(), P3.y());
+        P4 = QPointF(P4.x(), event->pos().y());
+    }
+    else if (moveBR==true){
          P2 = event->pos();
+         P3 = QPointF(P3.x(), event->pos().y());
+         P4 = QPointF(event->pos().x(), P4.y());
+    }
     else if (moveTR==true) {
-        P3 = event->pos();
+        P4 = event->pos();
+        P1 = QPointF(P1.x(), event->pos().y());
+        P2 = QPointF(event->pos().x(), P2.y());
     }
     else if (moveBL==true) {
-        P4 = event->pos();
+        P3 = event->pos();
+        P1 = QPointF(event->pos().x(), P1.y());
+        P2 = QPointF(P2.x(), event->pos().y());
     }
     else
     {
