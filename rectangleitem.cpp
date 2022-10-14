@@ -22,8 +22,8 @@ void rectangleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 {
     pTopLeft = P1;
     pBottomRight = P2;
-    pBottomLeft = QPointF(pTopLeft.x(),pBottomRight.y());
-    pTopRight = QPointF(pBottomRight.x(),pTopLeft.y());
+    pBottomLeft = P3;
+    pTopRight = P4;
 
     QBrush brush = painter->brush();
     brush.setStyle(Qt::SolidPattern);
@@ -116,12 +116,10 @@ void rectangleItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     else if (moveBR==true)
          P2 = event->pos();
     else if (moveTR==true) {
-        P1.setY(event->pos().y());
-        P2.setX(event->pos().x());
+        P3 = event->pos();
     }
     else if (moveBL==true) {
-        P1.setX(event->pos().x());
-        P2.setY(event->pos().y());
+        P4 = event->pos();
     }
     else
     {

@@ -7,6 +7,8 @@
 struct RoiRectangle{
     QPointF P1;
     QPointF P2;
+    QPointF P3;
+    QPointF P4;
 };
 
 class gridItem : public QObject, public QGraphicsItem

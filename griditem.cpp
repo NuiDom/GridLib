@@ -29,6 +29,8 @@ void gridItem::setGrid(QGraphicsScene *scene, int sceneWidth, int sceneHeight, i
             RoiRectangle roiRect;
             roiRect.P1 = QPointF(gridsCols,gridRows);
             roiRect.P2 = QPointF(gridsCols+rectWidth,gridRows+rectHeight);
+            roiRect.P3 = QPointF(gridsCols+rectWidth,gridRows);
+            roiRect.P4 = QPointF(gridsCols,gridRows+rectHeight);
             PatchROIs.append(roiRect);
 
 //            rectangleItem *rectRoi;
@@ -59,6 +61,8 @@ void gridItem::DrawGrid(QGraphicsScene *scene)
         connect(rectRoi, SIGNAL(signalPointToChange(QPointF)), this, SLOT(slotMoveStartPoint(QPointF)));
         rectRoi->P1 = roiRect.P1;
         rectRoi->P2 = roiRect.P2;
+        rectRoi->P3 = roiRect.P3;
+        rectRoi->P4 = roiRect.P4;
 
 //        addToGroup(rectRoi);
         rectRoi->show();

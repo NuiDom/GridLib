@@ -25,6 +25,8 @@ public:
 
     QPointF P1;
     QPointF P2;
+    QPointF P3;
+    QPointF P4;
 
     QPointF pTopLeft;
     QPointF pBottomRight;
