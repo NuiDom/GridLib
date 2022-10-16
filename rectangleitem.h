@@ -10,6 +10,14 @@
 #define UserType 65536
 #define RectangleFeatureItemType UserType+5
 
+enum currentPoint
+{
+    point1,
+    point2,
+    point3,
+    point4
+};
+
 class rectangleItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
@@ -46,7 +54,7 @@ public:
 
 signals:
     void signalPointChanged(QPointF);
-    void signalPointToChange(QPointF);
+    void signalPointToChange(QPointF, currentPoint);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

@@ -58,35 +58,48 @@ void rectangleItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MP event->button() : " << event->button();
 
+    currentPoint whichPoint;
+
     if(event->button()==Qt::LeftButton)
     {
         if((event->pos().x()>pTopLeft.x()-7) &&
                 (event->pos().x()<pTopLeft.x()+7) &&
                 (event->pos().y()>pTopLeft.y()-7) &&
-                (event->pos().y()<pTopLeft.y()+7))
+                (event->pos().y()<pTopLeft.y()+7)){
+            whichPoint = point1;
             moveTL = true;
+        }
 
         if((event->pos().x()>pBottomRight.x()-7) &&
                 (event->pos().x()<pBottomRight.x()+7) &&
                 (event->pos().y()>pBottomRight.y()-7) &&
-                (event->pos().y()<pBottomRight.y()+7))
+                (event->pos().y()<pBottomRight.y()+7)){
+            whichPoint = point2;
             moveBR = true;
+        }
+
         if((event->pos().x()>pTopRight.x()-7) &&
                 (event->pos().x()<pTopRight.x()+7) &&
                 (event->pos().y()>pTopRight.y()-7) &&
-                (event->pos().y()<pTopRight.y()+7))
+                (event->pos().y()<pTopRight.y()+7)){
+            whichPoint = point4;
             moveTR = true;
+        }
+
 
         if((event->pos().x()>pBottomLeft.x()-7) &&
                 (event->pos().x()<pBottomLeft.x()+7) &&
                 (event->pos().y()>pBottomLeft.y()-7) &&
-                (event->pos().y()<pBottomLeft.y()+7))
+                (event->pos().y()<pBottomLeft.y()+7)){
+            whichPoint = point3;
             moveBL = true;
+        }
+
 
         moveStartPoint = event->pos();
     }
     if(moveTL || moveBL || moveBR || moveTR)
-        emit signalPointToChange(moveStartPoint);
+        emit signalPointToChange(moveStartPoint, whichPoint);
 
     update();
     QGraphicsItem::mousePressEvent(event);

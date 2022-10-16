@@ -28,13 +28,23 @@ public:
 
 public slots:
     void slotPointChanged(QPointF);
-    void slotMoveStartPoint(QPointF);
+    void slotPointToChange(QPointF, currentPoint);
 
 signals:
     void signalChangeGrid();
 
 protected:
     QPointF moveStartP;
+    currentPoint thisPoint;
+    int IndexOfChangingRect;
+
+    int numRows;
+    int numCols;
+
+    void P1HasChanged(QPointF);
+    void P2HasChanged(QPointF);
+    void P3HasChanged(QPointF);
+    void P4HasChanged(QPointF);
 };
 
 #endif // GRIDITEM_H
