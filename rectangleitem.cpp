@@ -82,7 +82,7 @@ void rectangleItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 (event->pos().x()<pTopRight.x()+7) &&
                 (event->pos().y()>pTopRight.y()-7) &&
                 (event->pos().y()<pTopRight.y()+7)){
-            whichPoint = point4;
+            whichPoint = point3;
             moveTR = true;
         }
 
@@ -91,7 +91,7 @@ void rectangleItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 (event->pos().x()<pBottomLeft.x()+7) &&
                 (event->pos().y()>pBottomLeft.y()-7) &&
                 (event->pos().y()<pBottomLeft.y()+7)){
-            whichPoint = point3;
+            whichPoint = point4;
             moveBL = true;
         }
 

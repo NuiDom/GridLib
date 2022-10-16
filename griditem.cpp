@@ -244,6 +244,22 @@ void gridItem::P3HasChanged(QPointF point)
             IndexOfChangingRect = i;
         }
     }
+
+    PatchROIs[IndexOfChangingRect].P3 = point;
+    PatchROIs[IndexOfChangingRect].P2 = QPointF(point.x(), PatchROIs[IndexOfChangingRect].P2.y());
+    PatchROIs[IndexOfChangingRect].P1 = QPointF(PatchROIs[IndexOfChangingRect].P1.x(), point.y());
+
+    PatchROIs[IndexOfChangingRect + 1].P1 = point;
+    PatchROIs[IndexOfChangingRect + 1].P4 = QPointF(point.x(), PatchROIs[IndexOfChangingRect + 1].P4.y());
+    PatchROIs[IndexOfChangingRect + 1].P3 = QPointF(PatchROIs[IndexOfChangingRect + 1].P3.x(), point.y());
+
+    PatchROIs[IndexOfChangingRect - numCols].P2 = point;
+    PatchROIs[IndexOfChangingRect - numCols].P3 = QPointF(point.x(), PatchROIs[IndexOfChangingRect - numCols].P3.y());
+    PatchROIs[IndexOfChangingRect - numCols].P4 = QPointF(PatchROIs[IndexOfChangingRect - numCols].P4.x(), point.y());
+
+    PatchROIs[IndexOfChangingRect - numCols + 1].P4 = point;
+    PatchROIs[IndexOfChangingRect - numCols + 1].P1 = QPointF(point.x(), PatchROIs[IndexOfChangingRect - numCols + 1].P1.y());
+    PatchROIs[IndexOfChangingRect - numCols + 1].P2 = QPointF(PatchROIs[IndexOfChangingRect - numCols + 1].P2.x(), point.y());
 }
 
 void gridItem::P4HasChanged(QPointF point)
@@ -257,5 +273,21 @@ void gridItem::P4HasChanged(QPointF point)
             IndexOfChangingRect = i;
         }
     }
+
+    PatchROIs[IndexOfChangingRect].P4 = point;
+    PatchROIs[IndexOfChangingRect].P1 = QPointF(point.x(), PatchROIs[IndexOfChangingRect].P1.y());
+    PatchROIs[IndexOfChangingRect].P4 = QPointF(PatchROIs[IndexOfChangingRect].P4.x(), point.y());
+
+    PatchROIs[IndexOfChangingRect - 1].P2 = point;
+    PatchROIs[IndexOfChangingRect - 1].P3 = QPointF(point.x(), PatchROIs[IndexOfChangingRect - 1].P3.y());
+    PatchROIs[IndexOfChangingRect - 1].P4 = QPointF(PatchROIs[IndexOfChangingRect - 1].P4.x(), point.y());
+
+    PatchROIs[IndexOfChangingRect + numCols].P1 = point;
+    PatchROIs[IndexOfChangingRect + numCols].P4 = QPointF(point.x(), PatchROIs[IndexOfChangingRect + numCols].P4.y());
+    PatchROIs[IndexOfChangingRect + numCols].P3 = QPointF(PatchROIs[IndexOfChangingRect + numCols].P3.x(), point.y());
+
+    PatchROIs[IndexOfChangingRect + numCols - 1].P3 = point;
+    PatchROIs[IndexOfChangingRect + numCols - 1].P2 = QPointF(point.x(), PatchROIs[IndexOfChangingRect + numCols - 1].P2.y());
+    PatchROIs[IndexOfChangingRect + numCols - 1].P1 = QPointF(PatchROIs[IndexOfChangingRect + numCols - 1].P1.x(), point.y());
 }
 
