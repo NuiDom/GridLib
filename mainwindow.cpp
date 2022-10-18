@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    resize(1600, 900);
+
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
 

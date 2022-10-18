@@ -13,7 +13,7 @@ QRectF gridItem::boundingRect() const
 
 void gridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-//    setGrid(scene, 1280, 720, 2, 2);
+
 }
 
 void gridItem::setGrid(QGraphicsScene *scene, int sceneWidth, int sceneHeight, int rows, int columns)
@@ -276,7 +276,7 @@ void gridItem::P4HasChanged(QPointF point)
 
     PatchROIs[IndexOfChangingRect].P4 = point;
     PatchROIs[IndexOfChangingRect].P1 = QPointF(point.x(), PatchROIs[IndexOfChangingRect].P1.y());
-    PatchROIs[IndexOfChangingRect].P4 = QPointF(PatchROIs[IndexOfChangingRect].P4.x(), point.y());
+    PatchROIs[IndexOfChangingRect].P2 = QPointF(PatchROIs[IndexOfChangingRect].P2.x(), point.y());
 
     PatchROIs[IndexOfChangingRect - 1].P2 = point;
     PatchROIs[IndexOfChangingRect - 1].P3 = QPointF(point.x(), PatchROIs[IndexOfChangingRect - 1].P3.y());
