@@ -1,6 +1,7 @@
-#ifndef GRIDITEM_H
-#define GRIDITEM_H
+#ifndef GRID_H
+#define GRID_H
 
+#include <QObject>
 #include <QGraphicsScene>
 #include "rectangleitem.h"
 
@@ -11,19 +12,16 @@ struct RoiRectangle{
     QPointF P4;
 };
 
-class gridItem : public QObject, public QGraphicsItem
+class grid : public QObject
 {
     Q_OBJECT
 public:
-    gridItem(QGraphicsItem *parent = 0);
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    grid(QGraphicsScene *);
 
-    void setGrid(QGraphicsScene *scene, int sceneWidth, int sceneHeight, int rows, int columns);
+    void setGrid(int sceneWidth, int sceneHeight, int rows, int columns);
     QVector<RoiRectangle> PatchROIs;
 
-    void DrawGrid(QGraphicsScene *scene);
-//    void AddGrid();
+    void DrawGrid();
 
 
 public slots:
@@ -34,6 +32,8 @@ signals:
     void signalChangeGrid();
 
 protected:
+    QGraphicsScene *currentScene;
+
     QPointF moveStartP;
     currentPoint thisPoint;
     int IndexOfChangingRect;
@@ -47,4 +47,4 @@ protected:
     void P4HasChanged(QPointF);
 };
 
-#endif // GRIDITEM_H
+#endif // GRID_H

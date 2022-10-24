@@ -1,22 +1,11 @@
-﻿#include "griditem.h"
+#include "grid.h"
 
-gridItem::gridItem(QGraphicsItem *parent)
+grid::grid(QGraphicsScene *scene)
 {
-    setFlags(QGraphicsItem::ItemIsSelectable |
-             QGraphicsItem::ItemSendsGeometryChanges);
+    currentScene = scene;
 }
 
-QRectF gridItem::boundingRect() const
-{
-    return QRectF(1280,720,10,10);
-}
-
-void gridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-
-}
-
-void gridItem::setGrid(QGraphicsScene *scene, int sceneWidth, int sceneHeight, int rows, int columns)
+void grid::setGrid(int sceneWidth, int sceneHeight, int rows, int columns)
 {
     numRows = rows;
     numCols = columns;
@@ -45,15 +34,15 @@ void gridItem::setGrid(QGraphicsScene *scene, int sceneWidth, int sceneHeight, i
     }
 }
 
-void gridItem::DrawGrid(QGraphicsScene *scene)
+void grid::DrawGrid()
 {
     // Clear the Scene
-    QList<QGraphicsItem *>  graphicItems = scene->items();
+    QList<QGraphicsItem *>  graphicItems = currentScene->items();
     foreach(QGraphicsItem *graphicItem,graphicItems){
         if(graphicItem->type()== RectangleFeatureItemType)
             {
             graphicItem->hide();
-                scene->removeItem(graphicItem);
+                currentScene->removeItem(graphicItem);
             }
     }
 
@@ -70,24 +59,12 @@ void gridItem::DrawGrid(QGraphicsScene *scene)
 //        addToGroup(rectRoi);
         rectRoi->show();
         rectRoi->setVisible(true);
-        scene->addItem(rectRoi);
+        currentScene->addItem(rectRoi);
 
     }
 }
 
-//void gridItem::AddGrid()
-//{
-//    for(const RoiRectangle roiRect: qAsConst(PatchROIs))
-//    {
-//        rectangleItem *rectRoi = new rectangleItem();
-//        rectRoi->P1 = roiRect.P1;
-//        rectRoi->P2 = roiRect.P2;
-
-//        addToGroup(rectRoi);
-
-//    }
-
-void gridItem::slotPointChanged(QPointF point)
+void grid::slotPointChanged(QPointF point)
 {
     bool pointChanged = false;
     QPointF ppoint;
@@ -112,70 +89,22 @@ void gridItem::slotPointChanged(QPointF point)
     else {
         pointChanged = false;
     }
-////    if(PatchROIs.contains(moveStartP)){
-//        for(int i=0; i<PatchROIs.size(); i++){
-//            //If a P1 changes
-//            if((moveStartP.x()>(PatchROIs[i].P1.x()-7)) &&
-//               (moveStartP.x()<(PatchROIs[i].P1.x()+7)) &&
-//               (moveStartP.y()>(PatchROIs[i].P1.y()-7)) &&
-//               (moveStartP.y()<(PatchROIs[i].P1.y()+7))     )
-////            if((PatchROIs[i].P1 > (moveStartP-QPointF(7,7))) && (PatchROIs[i].P1 < (moveStartP+QPointF(7,7))))
-//            {
-//                //If it was changed by a P2
-////                if(thisPoint == point2)
-////                    ppoint = PatchROIs[i].P1;
 
-////                ppoint.x() = point.x();
-//////                else
-//////                    PatchROIs[i].P1 = point;
-//                PatchROIs[i].P1 = point;
-//                pointChanged = true;
-//            }
-//            //If a P2 changes
-//            if((moveStartP.x()>(PatchROIs[i].P2.x()-7)) &&
-//               (moveStartP.x()<(PatchROIs[i].P2.x()+7)) &&
-//               (moveStartP.y()>(PatchROIs[i].P2.y()-7)) &&
-//               (moveStartP.y()<(PatchROIs[i].P2.y()+7))     )
-////            if((PatchROIs[i].P2 > (moveStartP-QPointF(7,7))) && (PatchROIs[i].P2 < (moveStartP+QPointF(7,7))))
-//            {
-//                PatchROIs[i].P2 = point;
-//                pointChanged = true;
-//            }
-//            //If a P3 changes
-//            if((moveStartP.x()>(PatchROIs[i].P3.x()-7)) &&
-//               (moveStartP.x()<(PatchROIs[i].P3.x()+7)) &&
-//               (moveStartP.y()>(PatchROIs[i].P3.y()-7)) &&
-//               (moveStartP.y()<(PatchROIs[i].P3.y()+7))     )
-//            {
-//                PatchROIs[i].P3 = point;
-//                pointChanged = true;
-//            }
-//            //If a P4 changes
-//            if((moveStartP.x()>(PatchROIs[i].P4.x()-7)) &&
-//               (moveStartP.x()<(PatchROIs[i].P4.x()+7)) &&
-//               (moveStartP.y()>(PatchROIs[i].P4.y()-7)) &&
-//               (moveStartP.y()<(PatchROIs[i].P4.y()+7))     )
-//            {
-//                PatchROIs[i].P4 = point;
-//                pointChanged = true;
-//            }
+    if(pointChanged)
+        moveStartP = point;
 
-//        }
-        if(pointChanged)
-            moveStartP = point;
-//    }
     //draw grid based off patchroi
     if(pointChanged == true)
-        emit signalChangeGrid();
+        DrawGrid();
 }
 
-void gridItem::slotPointToChange(QPointF pointVal, currentPoint pointNum)
+void grid::slotPointToChange(QPointF pointVal, currentPoint pointNum)
 {
     moveStartP = pointVal;
     thisPoint = pointNum;
 }
 
-void gridItem::P1HasChanged(QPointF point)
+void grid::P1HasChanged(QPointF point)
 {
     for(int i=0; i<PatchROIs.size(); i++){
         if((moveStartP.x()>(PatchROIs[i].P1.x()-7)) &&
@@ -204,7 +133,7 @@ void gridItem::P1HasChanged(QPointF point)
     PatchROIs[IndexOfChangingRect - numCols - 1].P4 = QPointF(PatchROIs[IndexOfChangingRect - numCols - 1].P4.x(), point.y());
 }
 
-void gridItem::P2HasChanged(QPointF point)
+void grid::P2HasChanged(QPointF point)
 {
     for(int i=0; i<PatchROIs.size(); i++){
         if((moveStartP.x()>(PatchROIs[i].P2.x()-7)) &&
@@ -233,7 +162,7 @@ void gridItem::P2HasChanged(QPointF point)
     PatchROIs[IndexOfChangingRect + numCols + 1].P3 = QPointF(PatchROIs[IndexOfChangingRect + numCols + 1].P3.x(), point.y());
 }
 
-void gridItem::P3HasChanged(QPointF point)
+void grid::P3HasChanged(QPointF point)
 {
     for(int i=0; i<PatchROIs.size(); i++){
         if((moveStartP.x()>(PatchROIs[i].P3.x()-7)) &&
@@ -262,7 +191,7 @@ void gridItem::P3HasChanged(QPointF point)
     PatchROIs[IndexOfChangingRect - numCols + 1].P2 = QPointF(PatchROIs[IndexOfChangingRect - numCols + 1].P2.x(), point.y());
 }
 
-void gridItem::P4HasChanged(QPointF point)
+void grid::P4HasChanged(QPointF point)
 {
     for(int i=0; i<PatchROIs.size(); i++){
         if((moveStartP.x()>(PatchROIs[i].P4.x()-7)) &&
@@ -290,4 +219,3 @@ void gridItem::P4HasChanged(QPointF point)
     PatchROIs[IndexOfChangingRect + numCols - 1].P2 = QPointF(point.x(), PatchROIs[IndexOfChangingRect + numCols - 1].P2.y());
     PatchROIs[IndexOfChangingRect + numCols - 1].P1 = QPointF(PatchROIs[IndexOfChangingRect + numCols - 1].P1.x(), point.y());
 }
-

@@ -12,34 +12,14 @@ MainWindow::MainWindow(QWidget *parent)
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
 
-//    rect1 = new rectangleItem();
-//    rect1->P1 = QPointF(0,0);
-//    rect1->P2 = QPointF(200,200);
-//    scene->addItem(rect1);
-
-//    rect2 = new rectangleItem();
-//    rect2->P1 = QPointF(-200,-200);
-//    rect2->P2 = QPointF(0,0);
-//    scene->addItem(rect2);
-    rect3 = new rectangleItem();
-
-    grid = new gridItem();
-    grid->setGrid(scene, 1280, 720, 4, 4);
-    grid->DrawGrid(scene);
-    connect(grid, SIGNAL(signalChangeGrid()), this, SLOT(slotChangeGrid()));
-//    scene->addItem(grid);
-
-//    this->installEventFilter(this);
+    myGrid = new grid(scene);
+    myGrid->setGrid(1280, 720, 4, 4);
+    myGrid->DrawGrid();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::slotChangeGrid()
-{
-    grid->DrawGrid(scene);
 }
 
 void MainWindow::on_pushButton_selectGroup_clicked()
@@ -55,7 +35,7 @@ void MainWindow::on_pushButton_selectGroup_clicked()
             }
     }
 //    grid->AddGrid();
-    scene->addItem(grid);
+//    scene->addItem(myGrid);
 }
 
 //void MainWindow::mousePressEvent(QEvent *event)
