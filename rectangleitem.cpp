@@ -110,6 +110,9 @@ void rectangleItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MR event->button() : " << event->button();
 
+    if(moveTL || moveBL || moveBR || moveTR)
+        emit signalPointChanged(moveStartPoint);
+
     moveTL = false;
     moveBR = false;
     moveTR = false;
@@ -127,23 +130,23 @@ void rectangleItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
     if(moveTL==true){
         P1 = event->pos();
-        P3 = QPointF(event->pos().x(), P3.y());
-        P4 = QPointF(P4.x(), event->pos().y());
+        P4 = QPointF(event->pos().x(), P4.y());
+        P3 = QPointF(P3.x(), event->pos().y());
     }
     else if (moveBR==true){
          P2 = event->pos();
-         P3 = QPointF(P3.x(), event->pos().y());
-         P4 = QPointF(event->pos().x(), P4.y());
+         P4 = QPointF(P4.x(), event->pos().y());
+         P3 = QPointF(event->pos().x(), P3.y());
     }
     else if (moveBL==true) {
         P4 = event->pos();
-        P1 = QPointF(P1.x(), event->pos().y());
-        P2 = QPointF(event->pos().x(), P2.y());
+        P2 = QPointF(P2.x(), event->pos().y());
+        P1 = QPointF(event->pos().x(), P1.y());
     }
     else if (moveTR==true) {
         P3 = event->pos();
-        P1 = QPointF(event->pos().x(), P1.y());
-        P2 = QPointF(P2.x(), event->pos().y());
+        P2 = QPointF(event->pos().x(), P2.y());
+        P1 = QPointF(P1.x(), event->pos().y());
     }
     else
     {
@@ -151,8 +154,6 @@ void rectangleItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         P2 += event->pos() - moveStartPoint;
     }
 
-    if(moveTL || moveBL || moveBR || moveTR)
-        emit signalPointChanged(event->pos());
     moveStartPoint = event->pos();
     prepareGeometryChange();
     update();
