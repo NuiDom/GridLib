@@ -36,6 +36,14 @@ public:
     QPointF P3;
     QPointF P4;
 
+    bool isSelected = false;
+    bool isTemplate = false;
+
+signals:
+    void signalPointChanged(QPointF);
+    void signalPointToChange(QPointF, currentPoint);
+
+protected:
     QPointF pTopLeft;
     QPointF pBottomRight;
     QPointF pBottomLeft;
@@ -46,17 +54,10 @@ public:
     bool moveTR = false;
     bool moveBL = false;
 
-    bool mouseHover;
-    bool isSelected = false;
-    bool isTemplate = false;
-
     QPointF moveStartPoint;
 
-signals:
-    void signalPointChanged(QPointF);
-    void signalPointToChange(QPointF, currentPoint);
+    bool mouseHover;
 
-protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
