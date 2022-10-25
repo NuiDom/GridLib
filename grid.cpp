@@ -110,16 +110,18 @@ void grid::slotPointToChange(QPointF pointVal, currentPoint pointNum)
 
 void grid::slotDoubleClicked(QPointF point, currentPoint pointNum)
 {
+    if(pointNum == point3 || pointNum == point4)
+        return;
+
     if(doubleClickCounter == 0){
         doubleClickCounter += 1;
         doubleClickedPoint1 = point;
-        int t = 0;
     }
     else{
         doubleClickCounter = 0;
         doubleClickedPoint2 = point;
         //execute double click logic
-        int te = 0;
+        groupSelection();
     }
 }
 
@@ -237,4 +239,12 @@ void grid::P4HasChanged(QPointF point)
     PatchROIs[IndexOfChangingRect + numCols - 1].P3 = point;
     PatchROIs[IndexOfChangingRect + numCols - 1].P2 = QPointF(point.x(), PatchROIs[IndexOfChangingRect + numCols - 1].P2.y());
     PatchROIs[IndexOfChangingRect + numCols - 1].P1 = QPointF(PatchROIs[IndexOfChangingRect + numCols - 1].P1.x(), point.y());
+}
+
+void grid::groupSelection()
+{
+    groupSelectionRect.P1 = doubleClickedPoint1;
+    groupSelectionRect.P2 = doubleClickedPoint2;
+    groupSelectionRect.P3 = QPointF(doubleClickedPoint2.x(), doubleClickedPoint1.y());
+    groupSelectionRect.P4 = QPointF(doubleClickedPoint1.x(), doubleClickedPoint2.y());
 }

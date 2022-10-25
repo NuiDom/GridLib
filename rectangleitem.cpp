@@ -198,10 +198,10 @@ void rectangleItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     }
     else
     {
-        P1 += event->pos() - moveStartPoint;
-        P2 += event->pos() - moveStartPoint;
-        P3 += event->pos() - moveStartPoint;
-        P4 += event->pos() - moveStartPoint;
+//        P1 += event->pos() - moveStartPoint;
+//        P2 += event->pos() - moveStartPoint;      //makes rects moveable
+//        P3 += event->pos() - moveStartPoint;
+//        P4 += event->pos() - moveStartPoint;
     }
 
     moveStartPoint = event->pos();

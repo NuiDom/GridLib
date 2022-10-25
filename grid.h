@@ -46,11 +46,14 @@ protected:
     int doubleClickCounter = 0;
     QPointF doubleClickedPoint1;
     QPointF doubleClickedPoint2;
+    rectangleItem groupSelectionRect;
 
     void P1HasChanged(QPointF);
     void P2HasChanged(QPointF);
     void P3HasChanged(QPointF);
     void P4HasChanged(QPointF);
+
+    void groupSelection();
 };
 
 #endif // GRID_H
