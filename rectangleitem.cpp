@@ -56,7 +56,51 @@ void rectangleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 
 void rectangleItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
+    qDebug() << "MDC event->button() : " << event->button();
 
+    bool pointClicked = false;
+    currentPoint whichPoint;
+
+    if(event->button()==Qt::LeftButton)
+    {
+        if((event->pos().x()>pTopLeft.x()-7) &&
+                (event->pos().x()<pTopLeft.x()+7) &&
+                (event->pos().y()>pTopLeft.y()-7) &&
+                (event->pos().y()<pTopLeft.y()+7)){
+            whichPoint = point1;
+            pointClicked = true;
+        }
+
+        if((event->pos().x()>pBottomRight.x()-7) &&
+                (event->pos().x()<pBottomRight.x()+7) &&
+                (event->pos().y()>pBottomRight.y()-7) &&
+                (event->pos().y()<pBottomRight.y()+7)){
+            whichPoint = point2;
+            pointClicked = true;
+        }
+
+        if((event->pos().x()>pTopRight.x()-7) &&
+                (event->pos().x()<pTopRight.x()+7) &&
+                (event->pos().y()>pTopRight.y()-7) &&
+                (event->pos().y()<pTopRight.y()+7)){
+            whichPoint = point3;
+            pointClicked = true;
+        }
+
+
+        if((event->pos().x()>pBottomLeft.x()-7) &&
+                (event->pos().x()<pBottomLeft.x()+7) &&
+                (event->pos().y()>pBottomLeft.y()-7) &&
+                (event->pos().y()<pBottomLeft.y()+7)){
+            whichPoint = point4;
+            pointClicked = true;
+        }
+    }
+    if(pointClicked){
+        emit signalDoubleClick(event->pos(), whichPoint);
+    }
+
+    QGraphicsItem::mouseDoubleClickEvent(event);
 }
 
 void rectangleItem::mousePressEvent(QGraphicsSceneMouseEvent *event)

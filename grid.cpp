@@ -47,6 +47,7 @@ void grid::DrawGrid()
         rectangleItem *rectRoi = new rectangleItem();
         connect(rectRoi, SIGNAL(signalPointChanged(QPointF)), this, SLOT(slotPointChanged(QPointF)));
         connect(rectRoi, SIGNAL(signalPointToChange(QPointF, currentPoint)), this, SLOT(slotPointToChange(QPointF, currentPoint)));
+        connect(rectRoi, SIGNAL(signalDoubleClick(QPointF,currentPoint)), this, SLOT(slotDoubleClicked(QPointF,currentPoint)));
         rectRoi->P1 = roiRect.P1;
         rectRoi->P2 = roiRect.P2;
         rectRoi->P3 = roiRect.P3;
@@ -105,6 +106,21 @@ void grid::slotPointToChange(QPointF pointVal, currentPoint pointNum)
 {
     moveStartP = pointVal;
     thisPoint = pointNum;
+}
+
+void grid::slotDoubleClicked(QPointF point, currentPoint pointNum)
+{
+    if(doubleClickCounter == 0){
+        doubleClickCounter += 1;
+        doubleClickedPoint1 = point;
+        int t = 0;
+    }
+    else{
+        doubleClickCounter = 0;
+        doubleClickedPoint2 = point;
+        //execute double click logic
+        int te = 0;
+    }
 }
 
 void grid::P1HasChanged(QPointF point)

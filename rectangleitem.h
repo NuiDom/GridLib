@@ -55,6 +55,7 @@ public:
 signals:
     void signalPointChanged(QPointF);
     void signalPointToChange(QPointF, currentPoint);
+    void signalDoubleClick(QPointF, currentPoint);
 
 protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
