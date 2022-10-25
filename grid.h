@@ -1,4 +1,4 @@
-#ifndef GRID_H
+﻿#ifndef GRID_H
 #define GRID_H
 
 #include <QObject>
@@ -40,6 +40,9 @@ protected:
 
     int numRows;
     int numCols;
+
+    int gridWidth;
+    int gridHeight;
 
     void P1HasChanged(QPointF);
     void P2HasChanged(QPointF);

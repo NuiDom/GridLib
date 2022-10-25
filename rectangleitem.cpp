@@ -3,7 +3,6 @@
 rectangleItem::rectangleItem(QGraphicsItem *parent)
 {
     setFlags(QGraphicsItem::ItemIsSelectable |
-             QGraphicsItem::ItemIsMovable |
              QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(true);
 
@@ -53,6 +52,11 @@ void rectangleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     painter->drawLine(pTopLeft,pTopRight);
     painter->drawLine(pBottomLeft,pBottomRight);
     painter->drawLine(pTopRight,pBottomRight);
+}
+
+void rectangleItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+{
+
 }
 
 void rectangleItem::mousePressEvent(QGraphicsSceneMouseEvent *event)

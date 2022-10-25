@@ -7,6 +7,8 @@ grid::grid(QGraphicsScene *scene)
 
 void grid::setGrid(int sceneWidth, int sceneHeight, int rows, int columns)
 {
+    gridWidth = sceneWidth;
+    gridHeight = sceneHeight;
     numRows = rows;
     numCols = columns;
 
@@ -24,12 +26,6 @@ void grid::setGrid(int sceneWidth, int sceneHeight, int rows, int columns)
             roiRect.P3 = QPointF(gridsCols+rectWidth,gridRows);
             roiRect.P4 = QPointF(gridsCols,gridRows+rectHeight);
             PatchROIs.append(roiRect);
-
-//            rectangleItem *rectRoi;
-//            rectRoi = new rectangleItem();
-//            rectRoi->P1 = QPointF(gridsCols, gridRows);
-//            rectRoi->P2 = QPointF(gridsCols+rectWidth, gridRows+rectHeight);
-//            scene->addItem(rectRoi);
         }
     }
 }
@@ -56,7 +52,6 @@ void grid::DrawGrid()
         rectRoi->P3 = roiRect.P3;
         rectRoi->P4 = roiRect.P4;
 
-//        addToGroup(rectRoi);
         rectRoi->show();
         rectRoi->setVisible(true);
         currentScene->addItem(rectRoi);
@@ -67,7 +62,15 @@ void grid::DrawGrid()
 void grid::slotPointChanged(QPointF point)
 {
     bool pointChanged = false;
-    QPointF ppoint;
+
+    if((moveStartP.x() > (0-7) && moveStartP.x() < (0+7)) ||
+       (moveStartP.x() > (gridWidth-7) && moveStartP.x() < (gridWidth+7)) ||
+       (moveStartP.y() > (0-7) && moveStartP.y() < (0+7)) ||
+       (moveStartP.y() > (gridHeight-7) && moveStartP.y() < (gridHeight+7))){
+        qDebug() << "Point on border";
+        DrawGrid();
+        return;
+    }
 
     //update patchroi
     if(thisPoint == point1){
