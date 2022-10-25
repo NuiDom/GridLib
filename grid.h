@@ -19,7 +19,7 @@ public:
     grid(QGraphicsScene *);
 
     void setGrid(int sceneWidth, int sceneHeight, int rows, int columns);
-    QVector<RoiRectangle> PatchROIs;
+    QVector<RoiRectangle> GridPatchROIs;
 
     void DrawGrid();
     int getNumRows(){ return numRows;}

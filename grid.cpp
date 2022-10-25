@@ -25,7 +25,7 @@ void grid::setGrid(int sceneWidth, int sceneHeight, int rows, int columns)
             roiRect.P2 = QPointF(gridsCols+rectWidth,gridRows+rectHeight);
             roiRect.P3 = QPointF(gridsCols+rectWidth,gridRows);
             roiRect.P4 = QPointF(gridsCols,gridRows+rectHeight);
-            PatchROIs.append(roiRect);
+            GridPatchROIs.append(roiRect);
         }
     }
 }
@@ -42,7 +42,7 @@ void grid::DrawGrid()
             }
     }
 
-    for(const RoiRectangle roiRect: qAsConst(PatchROIs))
+    for(const RoiRectangle roiRect: qAsConst(GridPatchROIs))
     {
         rectangleItem *rectRoi = new rectangleItem();
         connect(rectRoi, SIGNAL(signalPointChanged(QPointF)), this, SLOT(slotPointChanged(QPointF)));
@@ -109,116 +109,116 @@ void grid::slotPointToChange(QPointF pointVal, currentPoint pointNum)
 
 void grid::P1HasChanged(QPointF point)
 {
-    for(int i=0; i<PatchROIs.size(); i++){
-        if((moveStartP.x()>(PatchROIs[i].P1.x()-7)) &&
-           (moveStartP.x()<(PatchROIs[i].P1.x()+7)) &&
-           (moveStartP.y()>(PatchROIs[i].P1.y()-7)) &&
-           (moveStartP.y()<(PatchROIs[i].P1.y()+7))   )
+    for(int i=0; i<GridPatchROIs.size(); i++){
+        if((moveStartP.x()>(GridPatchROIs[i].P1.x()-7)) &&
+           (moveStartP.x()<(GridPatchROIs[i].P1.x()+7)) &&
+           (moveStartP.y()>(GridPatchROIs[i].P1.y()-7)) &&
+           (moveStartP.y()<(GridPatchROIs[i].P1.y()+7))   )
         {
             IndexOfChangingRect = i;
         }
     }
 
-    PatchROIs[IndexOfChangingRect].P1 = point;
-    PatchROIs[IndexOfChangingRect].P4 = QPointF(point.x(), PatchROIs[IndexOfChangingRect].P4.y());
-    PatchROIs[IndexOfChangingRect].P3 = QPointF(PatchROIs[IndexOfChangingRect].P3.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect].P1 = point;
+    GridPatchROIs[IndexOfChangingRect].P4 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect].P4.y());
+    GridPatchROIs[IndexOfChangingRect].P3 = QPointF(GridPatchROIs[IndexOfChangingRect].P3.x(), point.y());
 
-    PatchROIs[IndexOfChangingRect - 1].P3 = point;
-    PatchROIs[IndexOfChangingRect - 1].P2 = QPointF(point.x(), PatchROIs[IndexOfChangingRect - 1].P2.y());
-    PatchROIs[IndexOfChangingRect - 1].P1 = QPointF(PatchROIs[IndexOfChangingRect - 1].P1.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect - 1].P3 = point;
+    GridPatchROIs[IndexOfChangingRect - 1].P2 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect - 1].P2.y());
+    GridPatchROIs[IndexOfChangingRect - 1].P1 = QPointF(GridPatchROIs[IndexOfChangingRect - 1].P1.x(), point.y());
 
-    PatchROIs[IndexOfChangingRect - numCols].P4 = point;
-    PatchROIs[IndexOfChangingRect - numCols].P1 = QPointF(point.x(), PatchROIs[IndexOfChangingRect - numCols].P1.y());
-    PatchROIs[IndexOfChangingRect - numCols].P2 = QPointF(PatchROIs[IndexOfChangingRect - numCols].P2.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect - numCols].P4 = point;
+    GridPatchROIs[IndexOfChangingRect - numCols].P1 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect - numCols].P1.y());
+    GridPatchROIs[IndexOfChangingRect - numCols].P2 = QPointF(GridPatchROIs[IndexOfChangingRect - numCols].P2.x(), point.y());
 
-    PatchROIs[IndexOfChangingRect - numCols - 1].P2 = point;
-    PatchROIs[IndexOfChangingRect - numCols - 1].P3 = QPointF(point.x(), PatchROIs[IndexOfChangingRect - numCols - 1].P3.y());
-    PatchROIs[IndexOfChangingRect - numCols - 1].P4 = QPointF(PatchROIs[IndexOfChangingRect - numCols - 1].P4.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect - numCols - 1].P2 = point;
+    GridPatchROIs[IndexOfChangingRect - numCols - 1].P3 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect - numCols - 1].P3.y());
+    GridPatchROIs[IndexOfChangingRect - numCols - 1].P4 = QPointF(GridPatchROIs[IndexOfChangingRect - numCols - 1].P4.x(), point.y());
 }
 
 void grid::P2HasChanged(QPointF point)
 {
-    for(int i=0; i<PatchROIs.size(); i++){
-        if((moveStartP.x()>(PatchROIs[i].P2.x()-7)) &&
-           (moveStartP.x()<(PatchROIs[i].P2.x()+7)) &&
-           (moveStartP.y()>(PatchROIs[i].P2.y()-7)) &&
-           (moveStartP.y()<(PatchROIs[i].P2.y()+7))   )
+    for(int i=0; i<GridPatchROIs.size(); i++){
+        if((moveStartP.x()>(GridPatchROIs[i].P2.x()-7)) &&
+           (moveStartP.x()<(GridPatchROIs[i].P2.x()+7)) &&
+           (moveStartP.y()>(GridPatchROIs[i].P2.y()-7)) &&
+           (moveStartP.y()<(GridPatchROIs[i].P2.y()+7))   )
         {
             IndexOfChangingRect = i;
         }
     }
 
-    PatchROIs[IndexOfChangingRect].P2 = point;
-    PatchROIs[IndexOfChangingRect].P3 = QPointF(point.x(), PatchROIs[IndexOfChangingRect].P3.y());
-    PatchROIs[IndexOfChangingRect].P4 = QPointF(PatchROIs[IndexOfChangingRect].P4.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect].P2 = point;
+    GridPatchROIs[IndexOfChangingRect].P3 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect].P3.y());
+    GridPatchROIs[IndexOfChangingRect].P4 = QPointF(GridPatchROIs[IndexOfChangingRect].P4.x(), point.y());
 
-    PatchROIs[IndexOfChangingRect + 1].P4 = point;
-    PatchROIs[IndexOfChangingRect + 1].P1 = QPointF(point.x(), PatchROIs[IndexOfChangingRect+1].P1.y());
-    PatchROIs[IndexOfChangingRect + 1].P2 = QPointF(PatchROIs[IndexOfChangingRect+1].P2.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect + 1].P4 = point;
+    GridPatchROIs[IndexOfChangingRect + 1].P1 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect+1].P1.y());
+    GridPatchROIs[IndexOfChangingRect + 1].P2 = QPointF(GridPatchROIs[IndexOfChangingRect+1].P2.x(), point.y());
 
-    PatchROIs[IndexOfChangingRect + numCols].P3 = point;
-    PatchROIs[IndexOfChangingRect + numCols].P2 = QPointF(point.x(), PatchROIs[IndexOfChangingRect + numCols].P2.y());
-    PatchROIs[IndexOfChangingRect + numCols].P1 = QPointF(PatchROIs[IndexOfChangingRect + numCols].P1.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect + numCols].P3 = point;
+    GridPatchROIs[IndexOfChangingRect + numCols].P2 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect + numCols].P2.y());
+    GridPatchROIs[IndexOfChangingRect + numCols].P1 = QPointF(GridPatchROIs[IndexOfChangingRect + numCols].P1.x(), point.y());
 
-    PatchROIs[IndexOfChangingRect + numCols + 1].P1 = point;
-    PatchROIs[IndexOfChangingRect + numCols + 1].P4 = QPointF(point.x(), PatchROIs[IndexOfChangingRect + numCols + 1].P4.y());
-    PatchROIs[IndexOfChangingRect + numCols + 1].P3 = QPointF(PatchROIs[IndexOfChangingRect + numCols + 1].P3.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect + numCols + 1].P1 = point;
+    GridPatchROIs[IndexOfChangingRect + numCols + 1].P4 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect + numCols + 1].P4.y());
+    GridPatchROIs[IndexOfChangingRect + numCols + 1].P3 = QPointF(GridPatchROIs[IndexOfChangingRect + numCols + 1].P3.x(), point.y());
 }
 
 void grid::P3HasChanged(QPointF point)
 {
-    for(int i=0; i<PatchROIs.size(); i++){
-        if((moveStartP.x()>(PatchROIs[i].P3.x()-7)) &&
-           (moveStartP.x()<(PatchROIs[i].P3.x()+7)) &&
-           (moveStartP.y()>(PatchROIs[i].P3.y()-7)) &&
-           (moveStartP.y()<(PatchROIs[i].P3.y()+7))   )
+    for(int i=0; i<GridPatchROIs.size(); i++){
+        if((moveStartP.x()>(GridPatchROIs[i].P3.x()-7)) &&
+           (moveStartP.x()<(GridPatchROIs[i].P3.x()+7)) &&
+           (moveStartP.y()>(GridPatchROIs[i].P3.y()-7)) &&
+           (moveStartP.y()<(GridPatchROIs[i].P3.y()+7))   )
         {
             IndexOfChangingRect = i;
         }
     }
 
-    PatchROIs[IndexOfChangingRect].P3 = point;
-    PatchROIs[IndexOfChangingRect].P2 = QPointF(point.x(), PatchROIs[IndexOfChangingRect].P2.y());
-    PatchROIs[IndexOfChangingRect].P1 = QPointF(PatchROIs[IndexOfChangingRect].P1.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect].P3 = point;
+    GridPatchROIs[IndexOfChangingRect].P2 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect].P2.y());
+    GridPatchROIs[IndexOfChangingRect].P1 = QPointF(GridPatchROIs[IndexOfChangingRect].P1.x(), point.y());
 
-    PatchROIs[IndexOfChangingRect + 1].P1 = point;
-    PatchROIs[IndexOfChangingRect + 1].P4 = QPointF(point.x(), PatchROIs[IndexOfChangingRect + 1].P4.y());
-    PatchROIs[IndexOfChangingRect + 1].P3 = QPointF(PatchROIs[IndexOfChangingRect + 1].P3.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect + 1].P1 = point;
+    GridPatchROIs[IndexOfChangingRect + 1].P4 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect + 1].P4.y());
+    GridPatchROIs[IndexOfChangingRect + 1].P3 = QPointF(GridPatchROIs[IndexOfChangingRect + 1].P3.x(), point.y());
 
-    PatchROIs[IndexOfChangingRect - numCols].P2 = point;
-    PatchROIs[IndexOfChangingRect - numCols].P3 = QPointF(point.x(), PatchROIs[IndexOfChangingRect - numCols].P3.y());
-    PatchROIs[IndexOfChangingRect - numCols].P4 = QPointF(PatchROIs[IndexOfChangingRect - numCols].P4.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect - numCols].P2 = point;
+    GridPatchROIs[IndexOfChangingRect - numCols].P3 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect - numCols].P3.y());
+    GridPatchROIs[IndexOfChangingRect - numCols].P4 = QPointF(GridPatchROIs[IndexOfChangingRect - numCols].P4.x(), point.y());
 
-    PatchROIs[IndexOfChangingRect - numCols + 1].P4 = point;
-    PatchROIs[IndexOfChangingRect - numCols + 1].P1 = QPointF(point.x(), PatchROIs[IndexOfChangingRect - numCols + 1].P1.y());
-    PatchROIs[IndexOfChangingRect - numCols + 1].P2 = QPointF(PatchROIs[IndexOfChangingRect - numCols + 1].P2.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect - numCols + 1].P4 = point;
+    GridPatchROIs[IndexOfChangingRect - numCols + 1].P1 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect - numCols + 1].P1.y());
+    GridPatchROIs[IndexOfChangingRect - numCols + 1].P2 = QPointF(GridPatchROIs[IndexOfChangingRect - numCols + 1].P2.x(), point.y());
 }
 
 void grid::P4HasChanged(QPointF point)
 {
-    for(int i=0; i<PatchROIs.size(); i++){
-        if((moveStartP.x()>(PatchROIs[i].P4.x()-7)) &&
-           (moveStartP.x()<(PatchROIs[i].P4.x()+7)) &&
-           (moveStartP.y()>(PatchROIs[i].P4.y()-7)) &&
-           (moveStartP.y()<(PatchROIs[i].P4.y()+7))   )
+    for(int i=0; i<GridPatchROIs.size(); i++){
+        if((moveStartP.x()>(GridPatchROIs[i].P4.x()-7)) &&
+           (moveStartP.x()<(GridPatchROIs[i].P4.x()+7)) &&
+           (moveStartP.y()>(GridPatchROIs[i].P4.y()-7)) &&
+           (moveStartP.y()<(GridPatchROIs[i].P4.y()+7))   )
         {
             IndexOfChangingRect = i;
         }
     }
 
-    PatchROIs[IndexOfChangingRect].P4 = point;
-    PatchROIs[IndexOfChangingRect].P1 = QPointF(point.x(), PatchROIs[IndexOfChangingRect].P1.y());
-    PatchROIs[IndexOfChangingRect].P2 = QPointF(PatchROIs[IndexOfChangingRect].P2.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect].P4 = point;
+    GridPatchROIs[IndexOfChangingRect].P1 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect].P1.y());
+    GridPatchROIs[IndexOfChangingRect].P2 = QPointF(GridPatchROIs[IndexOfChangingRect].P2.x(), point.y());
 
-    PatchROIs[IndexOfChangingRect - 1].P2 = point;
-    PatchROIs[IndexOfChangingRect - 1].P3 = QPointF(point.x(), PatchROIs[IndexOfChangingRect - 1].P3.y());
-    PatchROIs[IndexOfChangingRect - 1].P4 = QPointF(PatchROIs[IndexOfChangingRect - 1].P4.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect - 1].P2 = point;
+    GridPatchROIs[IndexOfChangingRect - 1].P3 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect - 1].P3.y());
+    GridPatchROIs[IndexOfChangingRect - 1].P4 = QPointF(GridPatchROIs[IndexOfChangingRect - 1].P4.x(), point.y());
 
-    PatchROIs[IndexOfChangingRect + numCols].P1 = point;
-    PatchROIs[IndexOfChangingRect + numCols].P4 = QPointF(point.x(), PatchROIs[IndexOfChangingRect + numCols].P4.y());
-    PatchROIs[IndexOfChangingRect + numCols].P3 = QPointF(PatchROIs[IndexOfChangingRect + numCols].P3.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect + numCols].P1 = point;
+    GridPatchROIs[IndexOfChangingRect + numCols].P4 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect + numCols].P4.y());
+    GridPatchROIs[IndexOfChangingRect + numCols].P3 = QPointF(GridPatchROIs[IndexOfChangingRect + numCols].P3.x(), point.y());
 
-    PatchROIs[IndexOfChangingRect + numCols - 1].P3 = point;
-    PatchROIs[IndexOfChangingRect + numCols - 1].P2 = QPointF(point.x(), PatchROIs[IndexOfChangingRect + numCols - 1].P2.y());
-    PatchROIs[IndexOfChangingRect + numCols - 1].P1 = QPointF(PatchROIs[IndexOfChangingRect + numCols - 1].P1.x(), point.y());
+    GridPatchROIs[IndexOfChangingRect + numCols - 1].P3 = point;
+    GridPatchROIs[IndexOfChangingRect + numCols - 1].P2 = QPointF(point.x(), GridPatchROIs[IndexOfChangingRect + numCols - 1].P2.y());
+    GridPatchROIs[IndexOfChangingRect + numCols - 1].P1 = QPointF(GridPatchROIs[IndexOfChangingRect + numCols - 1].P1.x(), point.y());
 }
