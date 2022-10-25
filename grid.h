@@ -22,6 +22,8 @@ public:
     QVector<RoiRectangle> PatchROIs;
 
     void DrawGrid();
+    int getNumRows(){ return numRows;}
+    int getNumColumns(){ return numCols;}
 
 
 public slots:
